@@ -2,3 +2,4 @@
 .env
 .temp
 .cmd.md
+Whisper/Models/ggml-tiny.en.bin
