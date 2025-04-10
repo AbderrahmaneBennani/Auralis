@@ -16,7 +16,8 @@ def run_script(script_name):
 if __name__ == "__main__":
     scripts_in_order = [
         "ListenWakeWord.py",
-        "ChatWithGPT4.py"
+        "SpeechToIntent.py",
+        "ExecuteCommand.py"
     ]
 
     for script in scripts_in_order:
