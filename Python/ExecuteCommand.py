@@ -1,31 +1,60 @@
 import json
+import subprocess
+import os
 
 def execute_command(intent, slots):
-    if intent == "play":
-        print("🎶 Playing music...")
-        # Add your code to play music here, using slots if needed
-        if "song" in slots:
-            print(f"🎵 Playing song: {slots['song']}")
-    elif intent == "stop":
-        print("⏹️ Stopping music...")
-        # Add your code to stop music here
+    if intent == "toggleMusic":
+        toggle_action = slots.get("toggle")
+
+        if toggle_action == "play":
+            print("🎶 Playing music...")
+
+            # Launch music in background using aplay (non-blocking)
+            music_file = "../Media/music.wav"  # Update path to your file
+            try:
+                subprocess.Popen(["aplay", music_file])
+                print("✅ Music playback started.")
+            except FileNotFoundError:
+                print("❌ Could not find aplay or the music file.")
+
+            # Relaunch main.py to go back to wake-word listening
+            try:
+                print("🔁 Relaunching main.py to listen for wake word...")
+                subprocess.Popen(["python3", "main.py"])
+            except FileNotFoundError:
+                print("❌ Could not find main.py.")
+
+        elif toggle_action == "stop":
+            print("⏹️ Stopping music...")
+            # Kill all aplay processes (or replace with smarter PID tracking)
+            subprocess.call(["pkill", "-f", "aplay"])
+            print("✅ Music stopped.")
+
+            # Relaunch main.py to go back to wake-word listening
+            try:
+                print("🔁 Relaunching main.py to listen for wake word...")
+                subprocess.Popen(["python3", "main.py"])
+            except FileNotFoundError:
+                print("❌ Could not find main.py.")
+
+        else:
+            print(f"❓ Unknown toggle action: {toggle_action}")
     else:
         print(f"❓ Unknown intent: {intent}")
 
 def main():
-    # Read the intent and slots from the JSON file
     try:
-        with open("intent_and_slots.json", "r") as f:
+        with open("./.temp/intent_and_slots.json", "r") as f:
             data = json.load(f)
-            intent = data["intent"]
-            slots = data["slots"]
+            intent = data.get("intent")
+            slots = data.get("slots", {})
         
-        # Execute the command based on the intent and slots
         execute_command(intent, slots)
+
     except FileNotFoundError:
-        print("❌ intent_and_slots.json not found. Make sure the previous script has run.")
+        print("❌ intent_and_slots.json not found.")
     except json.JSONDecodeError:
-        print("❌ Error decoding the intent and slots data.")
-    
+        print("❌ Could not decode intent_and_slots.json.")
+
 if __name__ == "__main__":
     main()
