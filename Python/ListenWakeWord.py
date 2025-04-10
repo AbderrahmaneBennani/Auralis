@@ -8,7 +8,7 @@ load_dotenv()
 API_KEY = os.getenv("API_KEY_3")
 
 # Initialize Porcupine with the custom wake word
-porcupine = pvporcupine.create(access_key=API_KEY, keyword_paths=['./Python/Custom_Keyword.ppn'])
+porcupine = pvporcupine.create(access_key=API_KEY, keyword_paths=['./Custom_Keyword.ppn'])
 
 pa = pyaudio.PyAudio()
 stream = pa.open(format=pyaudio.paInt16, channels=1, rate=16000,
@@ -23,7 +23,7 @@ try:
         result = porcupine.process(pcm)
         if result >= 0:
             print("Wake word detected!")
-            subprocess.run(["aplay", "./Samples/Ready.wav"])
+            subprocess.run(["aplay", "../Samples/Ready.wav"])
             break
 
 finally:
