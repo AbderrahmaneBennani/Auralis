@@ -2,4 +2,5 @@
 .env
 .temp
 .cmd.md
+Media
 Whisper/Models/ggml-tiny.en.bin

@@ -1,5 +1,0 @@
-Weather
-On
-Off
-play
-Stop

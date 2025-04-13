@@ -19,9 +19,9 @@ if __name__ == "__main__":
         "SpeechToIntent.py",
         "ExecuteCommand.py"
     ]
-
-    for script in scripts_in_order:
-        success = run_script(script)
-        if not success:
-            print("🚫 Stopping due to error.")
-            break
+    while True:
+        for script in scripts_in_order:
+            success = run_script(script)
+            if not success:
+                print("🚫 Stopping due to error.")
+                break

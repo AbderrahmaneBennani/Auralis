@@ -1,6 +1,7 @@
 import json
 import subprocess
 import os
+import paho.mqtt.client as mqtt
 
 def execute_command(intent, slots):
     if intent == "toggleMusic":
@@ -17,30 +18,45 @@ def execute_command(intent, slots):
             except FileNotFoundError:
                 print("❌ Could not find aplay or the music file.")
 
-            # Relaunch main.py to go back to wake-word listening
-            try:
-                print("🔁 Relaunching main.py to listen for wake word...")
-                subprocess.Popen(["python3", "main.py"])
-            except FileNotFoundError:
-                print("❌ Could not find main.py.")
-
         elif toggle_action == "stop":
             print("⏹️ Stopping music...")
+
             # Kill all aplay processes (or replace with smarter PID tracking)
             subprocess.call(["pkill", "-f", "aplay"])
             print("✅ Music stopped.")
+    
+    elif intent == "changeLightState":
+        # MQTT Configuration
+        MQTT_BROKER = "localhost"  # Your MQTT broker address
+        MQTT_PORT = 1883  # MQTT port (default is 1883)
+        MQTT_TOPIC = "zigbee2mqtt/Bulb1/set"  # Topic for your lightbulb
 
-            # Relaunch main.py to go back to wake-word listening
+        # Initialize MQTT client
+        client = mqtt.Client()
+        client.connect(MQTT_BROKER, MQTT_PORT, 60)
+        
+        toggle_action = slots.get("state")
+
+        if toggle_action == "on":
+            print("Turning lights on...")
             try:
-                print("🔁 Relaunching main.py to listen for wake word...")
-                subprocess.Popen(["python3", "main.py"])
-            except FileNotFoundError:
-                print("❌ Could not find main.py.")
+                # Publish MQTT message to turn on the light
+                client.publish(MQTT_TOPIC, '{"state": "ON"}')
+                print("✅ Light turned on.")
+            except Exception as e:
+                print(f"❌ Error turning on light: {e}")
 
-        else:
-            print(f"❓ Unknown toggle action: {toggle_action}")
+        elif toggle_action == "off":
+            print("Turning lights off...")
+            try:
+                # Publish MQTT message to turn off the light
+                client.publish(MQTT_TOPIC, '{"state": "OFF"}')
+                print("✅ Light turned off.")
+            except Exception as e:
+                print(f"❌ Error turning off light: {e}")
     else:
         print(f"❓ Unknown intent: {intent}")
+
 
 def main():
     try:
