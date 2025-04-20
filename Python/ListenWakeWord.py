@@ -23,7 +23,7 @@ try:
         result = porcupine.process(pcm)
         if result >= 0:
             print("Wake word detected!")
-            subprocess.run(["aplay", "../Samples/Ready.wav"])
+            subprocess.run(["aplay", "../Voice/Ready/1.wav"])
             break
 
 finally:
