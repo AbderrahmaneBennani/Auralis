@@ -6,7 +6,7 @@ import subprocess
 import random
 
 load_dotenv()
-API_KEY = os.getenv("API_KEY_3")
+API_KEY = os.getenv("PICO_API_KEY")
 
 # Initialize Porcupine with the custom wake word
 porcupine = pvporcupine.create(access_key=API_KEY, keyword_paths=['./Custom_Data/Custom_Keyword.ppn'])

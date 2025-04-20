@@ -8,7 +8,7 @@ import numpy as np
 import subprocess
 
 load_dotenv()
-API_KEY = os.getenv("API_KEY_3")
+API_KEY = os.getenv("PICO_API_KEY")
 
 # Initialize Rhino with the provided API key and context
 rhino = pvrhino.create(
