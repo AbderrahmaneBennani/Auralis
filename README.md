@@ -43,7 +43,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 3. API Key Setup
+### 3. Environment Variables
 
 Make sure to create a `.env` file in the root directory with your Picovoice API key: 
 
