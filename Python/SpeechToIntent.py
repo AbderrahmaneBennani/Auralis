@@ -1,9 +1,11 @@
 import json
+import random
 import pvrhino
 from dotenv import load_dotenv
 import os
 import pyaudio
 import numpy as np
+import subprocess
 
 load_dotenv()
 API_KEY = os.getenv("API_KEY_3")
@@ -33,10 +35,10 @@ def get_next_audio_frame():
     audio_frame = np.frombuffer(stream.read(FRAME_SIZE), dtype=np.int16)
     return audio_frame
 
+not_understood_count = 3
 while True:
     # Get the next audio frame
     audio_frame = get_next_audio_frame()
-
     # Process the audio frame with Rhino
     is_finalized = rhino.process(audio_frame)
     
@@ -61,6 +63,13 @@ while True:
             # Break the loop after the first intent is captured
             break
         else:
+            if not_understood_count == 3:
+                file_number = random.randint(1, 3)
+                file_path = f"../Voice/Sorry/{file_number}.wav"
+                subprocess.run(["aplay", file_path])
+                not_understood_count = 0
+            else:
+                not_understood_count += 1
             print("No intent understood")
 
 # Stop and close the audio stream, and terminate Rhino

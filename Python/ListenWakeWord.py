@@ -3,6 +3,7 @@ import os
 import pvporcupine
 import pyaudio
 import subprocess
+import random
 
 load_dotenv()
 API_KEY = os.getenv("API_KEY_3")
@@ -23,7 +24,9 @@ try:
         result = porcupine.process(pcm)
         if result >= 0:
             print("Wake word detected!")
-            subprocess.run(["aplay", "../Voice/Ready/1.wav"])
+            file_number = random.randint(1, 4)
+            file_path = f"../Voice/Ready/{file_number}.wav"
+            subprocess.run(["aplay", file_path])
             break
 
 finally:

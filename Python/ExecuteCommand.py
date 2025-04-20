@@ -13,14 +13,15 @@ def execute_command(intent, slots):
             # Launch music in background using aplay (non-blocking)
             music_file = "../Media/music.wav"  # Update path to your file
             try:
+                subprocess.run(["aplay", "../Voice/Confirm/music_confirm.wav"])
                 subprocess.Popen(["aplay", music_file])
                 print("✅ Music playback started.")
             except FileNotFoundError:
                 print("❌ Could not find aplay or the music file.")
 
         elif toggle_action == "stop":
+            subprocess.run(["aplay", "../Voice/Confirm/standard_confirm2"])
             print("⏹️ Stopping music...")
-
             # Kill all aplay processes (or replace with smarter PID tracking)
             subprocess.call(["pkill", "-f", "aplay"])
             print("✅ Music stopped.")
@@ -41,6 +42,7 @@ def execute_command(intent, slots):
             print("Turning lights on...")
             try:
                 # Publish MQTT message to turn on the light
+                subprocess.run(["aplay", "../Voice/Confirm/standard_confirm1.wav"])
                 client.publish(MQTT_TOPIC, '{"state": "ON"}')
                 print("✅ Light turned on.")
             except Exception as e:
@@ -50,6 +52,7 @@ def execute_command(intent, slots):
             print("Turning lights off...")
             try:
                 # Publish MQTT message to turn off the light
+                subprocess.run(["aplay", "../Voice/Confirm/standard_confirm1.wav"])
                 client.publish(MQTT_TOPIC, '{"state": "OFF"}')
                 print("✅ Light turned off.")
             except Exception as e:
