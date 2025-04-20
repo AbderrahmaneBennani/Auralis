@@ -1,0 +1,124 @@
+context:
+  expressions:
+    changeLightState:
+      - "@switch the light $state:state"
+      - "@switch $state:state the light"
+    toggleMusic:
+      - $toggle:toggle (the) music
+    getWeather:
+      - What's the weather like $date:date
+      - (@politeQuestion) How is (the) weather $date:date
+    addShoppingList:
+      - (@politeAddition ) add $items:item to (the) shopping list
+  slots:
+    state:
+      - off
+      - on
+    toggle:
+      - stop
+      - play
+    date:
+      - Tomorrow
+      - Today
+    items:
+      - Bread
+      - Milk
+      - Eggs
+      - Butter
+      - Cheese
+      - Yogurt
+      - Peanut Butter
+      - Jam
+      - Cereal
+      - Rice
+      - Pasta
+      - Flour
+      - Sugar
+      - Salt
+      - Black Pepper
+      - Sunflower Oil
+      - Olive Oil
+      - Vinegar
+      - Soy Sauce
+      - Canned Beans
+      - Canned Tomatoes
+      - Tuna
+      - Baking Powder
+      - Baking Soda
+      - Coffee
+      - Tea
+      - Juice
+      - Orange Juice
+      - Soda
+      - Coca Cola
+      - Snacks
+      - Chips
+      - Crackers
+      - Chocolate
+      - Pizza
+      - Ice Cream
+      - Apple
+      - Banana
+      - Orange
+      - Grapes
+      - Lemon
+      - Tomato
+      - Cucumber
+      - Carrot
+      - Potato
+      - Onion
+      - Garlic
+      - Lettuce
+      - Spinach
+      - Broccoli
+      - Peas
+      - Corn
+      - Pepper
+      - Mushroom
+      - Zucchini
+      - Chicken
+      - Beef
+      - Ground Meat
+      - Fish
+      - Shrimp
+      - Rolls
+      - Toilet Paper
+      - Kitchen Paper
+      - Paper Towels
+      - Tissues
+      - Trash Bags
+      - Laundry Detergent
+      - Dish Soap
+      - All-Purpose Cleaner
+      - Sponges
+      - Oven Paper
+      - Aluminum Foil
+      - Plastic Wrap
+      - Freezer Bags
+      - Toilet Cleaner
+      - Air Freshener
+      - Toothpaste
+      - Toothbrush
+      - Shampoo
+      - Conditioner
+      - Body Wash
+      - Hand Soap
+      - Soap
+      - Razor
+      - Shaving Cream
+      - Deodorant
+      - Lotion
+      - Candles
+  macros:
+    switch:
+      - switch
+      - turn
+    politeQuestion:
+      - Could you tell me
+      - Can you tell me
+      - I would like to know
+    politeAddition:
+      - Please
+      - Can you
+      - Would you
+      - Could you
